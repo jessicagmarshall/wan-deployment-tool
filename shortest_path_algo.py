@@ -7,14 +7,16 @@
 
 import numpy as np
 from skimage.graph import route_through_array
+from skimage.color import rgb2gray
 import scipy
+import scipy.misc
 import matplotlib.pyplot as plt
 
 #####TEST#####
 
 image = np.array([[1, 3], [10, 12]])        #input image
-print('image array =',image)
-print()
+#print('image array =',image)
+#print()
 
 # Forbid diagonal steps
 route_through_array(image, [0, 0], [1, 1], fully_connected=False)
@@ -30,27 +32,33 @@ route_through_array(image, [0, 0], [1, 1], fully_connected=False, geometric=Fals
 # Larger array where we display the path that is selected
 
 #image = np.arange((36)).reshape((6, 6))
-#image = scipy.misc.imread('/Users/jessicamarshall/Desktop/SeniorProject/map_screenshots/19 Kelly Rd, Saugerties NY_zoom17.png')
+image = scipy.misc.imread('/Users/jessicamarshall/Desktop/SeniorProject/map_screenshots/19 Kelly Rd, Saugerties NY_zoom17.png')
 
-image = scipy.misc.imread('/Users/jessicamarshall/Desktop/SeniorProject/MATLAB/burundilog.png')
-image = image[:, :, 1]
+figure = plt.figure()
+#axes = figure.add_subplot(1, 2, 1)
+#imgplot = plt.imshow(image)
 
-plt.figure
-imgplot = plt.imshow(image)
+
+#image = image[:, :, 0]
+image = rgb2gray(image)
+
+axes = figure.add_subplot(1, 2, 1)
+imgplot = plt.imshow(image, cmap = 'gray')
+
+
 
 print('image array =', image)
 print()
 
-# Find the path with lowest cost
-indices, weight = route_through_array(image, (0, 0), (image.shape[0] - 1, image.shape[1] - 1))
+# Find the path with lowest cost (MAKE COST ARRAY USING CHANNEL MODEL)
+indices, weight = route_through_array(image, (200, 0), (600, 100))
+#indices, weight = route_through_array(image, (0, 0), (image.shape[0] - 1, image.shape[1] - 1))
 indices = np.array(indices).T
 
 path = np.zeros_like(image)
 path[indices[0], indices[1]] = 1
 
-print(path)
 
-plt.figure
-plt.imshow(path)
-
+axes = figure.add_subplot(1, 2, 2)
+imgplot = plt.imshow(path, cmap = 'Greys')
 
