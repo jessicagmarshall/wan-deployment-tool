@@ -27,12 +27,19 @@ plt.close('all')
 address = '41 Cooper Sq New York, NY'
 g = geocoder.google(address)
 
-#latitude = g.lat
-latitude = 42.127315
-#longitude = g.lng
-longitude = -73.834235
+##IF YOU HAVE ADDRESS, COMMENT OUT COORDINATES!
+latitude = g.lat
+#latitude = 42.127315
+longitude = g.lng
+#longitude = -73.834235
 
 zoom = 14
+#do thing with distance/pixels
+
+#http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale
+meters_per_pixel = [156412, 78206, 39103, 19551, 9776, 4888, 2444, 1222, 610.984, 305.492, 152.746,  76.373, 38.187, 19.093, 9.547, 4.773, 2.387, 1.193, 0.596, 0.298]
+x = meters_per_pixel[zoom]
+
 url = "https://maps.googleapis.com/maps/api/staticmap?center=" + str(latitude) + "," + str(longitude) +"&size=800x800&zoom=" + str(zoom) + "&sensor=false&maptype=satellite"
 
 buffer = BytesIO(request.urlopen(url).read())

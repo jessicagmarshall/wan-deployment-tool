@@ -33,6 +33,9 @@ route_through_array(image, [0, 0], [1, 1], fully_connected=False, geometric=Fals
 
 #image = np.arange((36)).reshape((6, 6))
 image = scipy.misc.imread('/Users/jessicamarshall/Desktop/SeniorProject/map_screenshots/19 Kelly Rd, Saugerties NY_zoom17.png')
+image_grey = scipy.misc.imread('/Users/jessicamarshall/Desktop/SeniorProject/map_screenshots/19 Kelly Rd, Saugerties NY_zoom17_greyscale.png')
+image_seg = scipy.misc.imread('/Users/jessicamarshall/Desktop/SeniorProject/map_screenshots/19 Kelly Rd, Saugerties NY_zoom17_greysegmented.png')
+
 
 figure = plt.figure()
 #axes = figure.add_subplot(1, 2, 1)
@@ -40,19 +43,21 @@ figure = plt.figure()
 
 
 #image = image[:, :, 0]
-image = rgb2gray(image)
+#image = rgb2gray(image)
 
 axes = figure.add_subplot(1, 2, 1)
 imgplot = plt.imshow(image, cmap = 'gray')
-
-
 
 print('image array =', image)
 print()
 
 # Find the path with lowest cost (MAKE COST ARRAY USING CHANNEL MODEL)
-indices, weight = route_through_array(image, (200, 0), (600, 100))
-#indices, weight = route_through_array(image, (0, 0), (image.shape[0] - 1, image.shape[1] - 1))
+#do it first just open vs. closed
+
+cost_array = np.zeros(image_seg.shape)
+
+#indices, weight = route_through_array(image, (200, 0), (600, 100), fully_connected=True)
+indices, weight = route_through_array(image_seg, (0, 0), (image_seg.shape[0] - 1, image_seg.shape[1] - 1))
 indices = np.array(indices).T
 
 path = np.zeros_like(image)
