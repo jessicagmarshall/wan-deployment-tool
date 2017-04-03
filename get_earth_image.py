@@ -24,7 +24,7 @@ plt.close('all')
 #15: Streets
 #20: Buildings
 
-address = '41 Cooper Sq New York, NY'
+address = '19 Kelly Rd Saugerties NY'
 g = geocoder.google(address)
 
 ##IF YOU HAVE ADDRESS, COMMENT OUT COORDINATES!
@@ -33,7 +33,7 @@ latitude = g.lat
 longitude = g.lng
 #longitude = -73.834235
 
-zoom = 14
+zoom = 17
 #do thing with distance/pixels
 
 #http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Resolution_and_Scale

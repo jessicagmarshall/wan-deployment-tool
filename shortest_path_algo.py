@@ -57,10 +57,10 @@ print()
 cost_array = np.zeros(image_seg.shape)
 
 #indices, weight = route_through_array(image, (200, 0), (600, 100), fully_connected=True)
-indices, weight = route_through_array(image_seg, (0, 0), (image_seg.shape[0] - 1, image_seg.shape[1] - 1))
+indices, weight = route_through_array(image_seg, (0, 0), (image_seg.shape[0] - 1, image_seg.shape[1] - 1), geometric = False)
 indices = np.array(indices).T
 
-path = np.zeros_like(image)
+path = np.zeros_like(image_seg)
 path[indices[0], indices[1]] = 1
 
 
